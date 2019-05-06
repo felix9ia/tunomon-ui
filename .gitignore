@@ -1,6 +1,6 @@
-node_modules
+/node_modules
 .docz
-dist
+/dist
 .umi
 yarn.lock
 yarn-error.log

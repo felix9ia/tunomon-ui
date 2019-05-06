@@ -1,5 +1,5 @@
-# umi-library-demo
-umi-library的使用方法模板
+# Tunomon-UI
+使用umi-library构建
 
-- 添加了Button的示例
-- 配置了typescript
+
+- 使用typescript编写

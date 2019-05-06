@@ -1,10 +1,15 @@
-function getBar() {
-  return 'bar';
+import { createElement } from 'react';
+
+function index (_ref) {
+  var color = _ref.color,
+      children = _ref.children;
+  return createElement("button", {
+    style: {
+      color: color
+    }
+  }, children);
 }
 
-function index () {
-  var aBar = getBar();
-  console.log("hello world ".concat(aBar));
-}
+// export { default as Timeline} from './timeline'
 
-export default index;
+export { index as Button };

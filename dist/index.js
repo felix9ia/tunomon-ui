@@ -1,12 +1,19 @@
 'use strict';
 
-function getBar() {
-  return 'bar';
+Object.defineProperty(exports, '__esModule', { value: true });
+
+var React = require('react');
+
+function index (_ref) {
+  var color = _ref.color,
+      children = _ref.children;
+  return React.createElement("button", {
+    style: {
+      color: color
+    }
+  }, children);
 }
 
-function index () {
-  var aBar = getBar();
-  console.log("hello world ".concat(aBar));
-}
+// export { default as Timeline} from './timeline'
 
-module.exports = index;
+exports.Button = index;
