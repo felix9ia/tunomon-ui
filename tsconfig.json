@@ -11,5 +11,6 @@
     "target": "es6",
     "lib": ["dom", "es7"]
   },
+  "includes": ["src/externals.d.ts"],
   "exclude": ["node_modules", "lib", "es"]
 }

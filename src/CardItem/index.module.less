@@ -1,0 +1,42 @@
+.listItem {
+  margin-bottom: 10px;
+  display: flex;
+  height: 5rem;
+  border: 2px solid transparent;
+  .content {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex: 1 0 auto;
+    padding: 0;
+  }
+  .itemThumb {
+    background: #f2f2f2;
+    margin: 0.5rem;
+    // width: 5rem;
+    // height: 5rem;
+    width: 64px;
+    height: 60px;
+  }
+  .itemLink {
+    cursor: pointer;
+    padding: 0;
+    min-width: 60px;
+    background-color: #f7f7f7;
+    margin: 0.38461538rem 0.38461538rem 0.38461538rem 0.5rem;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+  .itemLink:last-child {
+    padding: 0;
+  }
+}
+.listItem:hover:not(.selectedItem) {
+  border-color: #ccc;
+}
+.selectedItem {
+  border-color: #009da5;
+}

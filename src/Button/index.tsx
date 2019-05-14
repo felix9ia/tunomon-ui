@@ -4,8 +4,8 @@ export interface Props {
     children: Node
 }
 
-export default function ({color, children}: Props) {
+export default function ({children}: Props) {
     return (
-        <button style={{color}}>{children}</button>
+        <button style={{color: 'blue'}}>{children}</button>
     );
 }
