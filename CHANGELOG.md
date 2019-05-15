@@ -12,6 +12,10 @@
 https://markdownlivepreview.com
 
 ---
+## 0.2.1
+-  🎉  迁移封装后的openlayers相关方法
+## 0.2.0
+- 🐞  test for multiple entry to slice ui and ol'utils
 ## 0.1.0
 -  🎉  迁移CardList和CardItem两个组件
 - 🐞  新增ts支持less的样式使用

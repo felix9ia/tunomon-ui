@@ -11,9 +11,6 @@ export interface CardListProps {
 
 
 
-/**
- * TODO 需要下沉到基础组件
- */
 class CardList extends React.Component<CardListProps, any> {
   // static getDerivedStateFromProps = (nextProps, prevState) => {
   //   // if ('value' in nextProps) {

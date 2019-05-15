@@ -9,7 +9,11 @@
     "noUnusedLocals": true,
     "noImplicitAny": true,
     "target": "es6",
-    "lib": ["dom", "es7"]
+    "lib": ["dom", "es7"],
+    "baseUrl": "./",
+    "paths": {
+      "ol/*": ["node_modules/@hanreev/types-ol/ol/*"]
+    },
   },
   "includes": ["src/externals.d.ts"],
   "exclude": ["node_modules", "lib", "es"]
