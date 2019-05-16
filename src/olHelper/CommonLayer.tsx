@@ -13,7 +13,7 @@ for (let i = 1; i < 21; i += 1) {
 
 export interface CommonLayerProps {
   projection: any,
-  host: string
+  url: string
 }
 
 export interface ResultConfig {
@@ -32,15 +32,15 @@ class CommonLayer {
    * @returns {*}
    */
   static getUrl = (url: string, ids: Array<any>) => ids.map(id => `${url}/${id}/wmts?`);
-  host: string;
+  url: string;
   projection: any;
 
   /**
    * es6不支持重载，所以要类型判断
    * @param config
    */
-  constructor({ projection, host }: CommonLayerProps) {
-    this.host = host;
+  constructor({ projection, url }: CommonLayerProps) {
+    this.url = url;
     this.projection = projection;
   }
 
@@ -55,7 +55,7 @@ class CommonLayer {
 
   getSource(imageMeta: any, tileGrid: any) {
     return new WMTS({
-      url: `${this.host}/${imageMeta._id}/wmts?`,
+      url: this.url,
       layer: imageMeta.layer || imageMeta._id, // TODO 这里为了兼容uni的id和layer不一致的情况，要反映
       matrixSet: '1',
       format: 'tiles',

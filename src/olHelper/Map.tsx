@@ -32,6 +32,22 @@ class Map {
     this.init();
   }
 
+  static transformExtentToUni(extent: any) {
+    const east = extent[2];
+    const west = extent[3];
+    const south = extent[1];
+    const north = extent[0];
+    return [east, west, south, north];
+  }
+
+  static transformExtentToOl(extent: any) {
+    const east = extent[0];
+    const west = extent[1];
+    const south = extent[2];
+    const north = extent[3];
+    return [west, south, east, north];
+  }
+
   getProjection = () => projection;
 
   /**
@@ -44,14 +60,7 @@ class Map {
 
   getCurrentState = () => {
     const extent = this.map.getView().calculateExtent(this.map.getSize());
-    console.log('extentextentextentextent', extent);
-    const east = extent[2];
-    const west = extent[3];
-    const south = extent[1];
-    const north = extent[0];
-    const unispaceExtent = [east, west, south, north];
-    // const unispaceExtent = extent;
-    // const extent = this.map.getView().getExtent
+    const unispaceExtent = Map.transformExtentToUni(extent);
     return {
       zoom: this.currentZoom,
       extent: unispaceExtent,
@@ -103,15 +112,15 @@ class Map {
     if (!layer || !overlay) {
       console.warn('addMarkerLayer未能初始化某些参数');
     }
-    layer && this.map.addLayer(layer);
+    layer && this.addLayer(layer);
     overlay && this.map.addOverlay(overlay);
   };
 
-  addCommonLayer(layer: any) {
+  addLayer(layer: TileLayer) {
     this.map.addLayer(layer);
   }
 
-  removeLayer(layer: any) {
+  removeLayer(layer: TileLayer) {
     this.map.removeLayer(layer, true);
   }
 
@@ -139,9 +148,21 @@ class Map {
   };
 
   fitByImgRange(ImgRange: any) {
+    /**
+     * 分两种情况
+     * 1.如果直接给[120.28877476616279, 120.2771892039965, 36.03962683748332, 36.04903575709562]
+     */
+    const isNumberArray = typeof ImgRange === 'object';
+    let extent;
+    console.log('ImgRange====', ImgRange);
+    if (isNumberArray) {
+      extent = Map.transformExtentToOl(ImgRange);
+    } else {
     const imgFeature = new WKT().readFeature(ImgRange);
-    const extent = imgFeature.getGeometry().getExtent();
-    this.map.getView().fit(extent, this.map.getSize());
+      extent = imgFeature.getGeometry().getExtent();
+    }
+    console.log('extent--', extent)
+    this.map.getView().fit( extent, this.map.getSize());
   }
 
   _watchResolutionChage() {

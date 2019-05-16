@@ -5,11 +5,10 @@ export interface CardListProps {
   multiple: boolean,
   scrollTop: number,
   source: Array<any>,
+  rowKey: string,
   selectedRowKeys: Array<any>,
   onChange: (keys: Array<any>, rows: Array<any>) => {},
 }
-
-
 
 class CardList extends React.Component<CardListProps, any> {
   // static getDerivedStateFromProps = (nextProps, prevState) => {
@@ -23,6 +22,7 @@ class CardList extends React.Component<CardListProps, any> {
     multiple: false,
     scrollTop: 0,
     source: [],
+    rowKey: '_id',
     onItemMouseLeave: () => {},
   };
 
@@ -77,12 +77,13 @@ class CardList extends React.Component<CardListProps, any> {
   };
 
   handleItemSelect = (item: any) => {
-    const { _id } = item;
-    const current = [_id];
+    const {rowKey} = this.props;
+    const currentId = item[rowKey];
+    const current = [currentId];
     const concatedItems = this.props.selectedRowKeys.concat(current);
     const resultIds = this.isPressing ? concatedItems : current;
     const rows = this.props.source.filter((sourceItem: any) => {
-      return resultIds.find(_id => sourceItem._id === _id);
+      return resultIds.find(id => sourceItem[rowKey] === id);
     });
     if (this.props.onChange) {
       this.props.onChange(resultIds, rows);
@@ -90,22 +91,23 @@ class CardList extends React.Component<CardListProps, any> {
   };
 
   shouldSelected = (item: any) => {
-    const { selectedRowKeys } = this.props;
+    const { selectedRowKeys, rowKey } = this.props;
     if (!selectedRowKeys) {
       throw new Error('  未找到 selectedRowKeys 属性');
     }
     const shouldSelected = selectedRowKeys.some(key => {
-      return item._id === key;
+      return item[rowKey] === key;
     });
     return shouldSelected;
   };
 
   render() {
+    const {  rowKey } = this.props;
     const childrenWithProps = (sourceItem: any) => {
       return React.Children.map(this.props.children, (child: any) =>
         React.cloneElement(child, {
           item: sourceItem,
-          key: sourceItem._id,
+          key: sourceItem[rowKey],
           onClick: this.handleItemSelect,
           shouldSelected: this.shouldSelected,
         })

@@ -12,6 +12,12 @@
 https://markdownlivepreview.com
 
 ---
+## 0.3.0
+-  🎉  新增LabelLayer的helper，可绘制目标点，江南计算所
+-  💄  CommonLayer由host改变为url
+
+## 0.2.2
+-  🎉  CardList支持外部定义id
 ## 0.2.1
 -  🎉  迁移封装后的openlayers相关方法
 ## 0.2.0
