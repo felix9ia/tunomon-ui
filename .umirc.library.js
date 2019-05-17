@@ -1,7 +1,6 @@
 export default {
   entry: [
-    'src/index.tsx',
-    'src/olHelper.tsx',
+    'src/index.js',
   ],
   esm: 'rollup',
 }

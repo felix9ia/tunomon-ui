@@ -8,28 +8,8 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
-interface SateName {
-  BJ2: string,
-  GE1: string,
-  GF1: string,
-  GF2: string,
-  GJ1: string,
-  KM2: string,
-  KM3: string,
-  PL0: string,
-  TH1: string,
-  WV2: string,
-  WV3: string,
-  ZY3: string,
-  KS3: string,
-  AD0: string,
-  LC8: string,
-  S2B: string,
-  S2A: string,
-  [key: string]: string
-}
 
-const sateName: SateName = {
+const sateName = {
   "BJ2": "0.8米",
   "GE1": "0.41米",
   "GF1": "2米",
@@ -49,56 +29,23 @@ const sateName: SateName = {
   "S2A": "10米"
 }
 
-interface SummaryKeys {
-  timeTitle:  string,
-  subTitle1:  string,
-  subTitle2:  string,
-  linkTitle:  string,
-  linkSubTitle: string,
-}
 
-interface ImageKeys {
-  timeTitle:  string,
-  subTitle1:  string,
-  subTitle2:  string,
-  linkTitle:  string,
-  linkSubTitle: string,
-}
-
-const summaryKeys: SummaryKeys = {
+const summaryKeys = {
   timeTitle: 'period',
   subTitle1: 'sateName',
   subTitle2: 'sateName',
   linkTitle: 'count',
   linkSubTitle: 'image',
 };
-const imageKeys: ImageKeys = {
+const imageKeys = {
   timeTitle: 'ProduceDate',
   subTitle1: 'SateName',
   subTitle2: 'SateName',
   linkTitle: 'count',
   linkSubTitle: 'info',
 };
-export interface CardItemProps {
-  draggable: boolean,
-  timeSpanType: string,
-  type: string,
-  source: Array<any>,
-  item: {
-    [key: string]: string
-  },
-  selectedRowKeys: Array<any>,
-  onItemDetailClick: (item: any) => {},
-  onDragStart: () => {},
-  onDragEnd: () => {},
-  onItemMouseOver: (item: any) => {},
-  onItemMouseLeave: (item: any) => {},
-  onClick: (item: any) => {},
-  render: (item: any) => {},
-  shouldSelected: (item: any) => boolean
-}
 
-class CardItem extends React.Component<CardItemProps, any> {
+class CardItem extends React.Component {
   static defaultProps = {
     draggable: true,
     timeSpanType: 'days',
@@ -122,12 +69,12 @@ class CardItem extends React.Component<CardItemProps, any> {
     timeSpanType: PropTypes.string,
   };
 
-  stopPropagation = (e: any) => {
+  stopPropagation = (e) => {
     e.stopPropagation();
     e.nativeEvent.stopImmediatePropagation();
   };
 
-  handleItemDetailClick = (e: any, item: any) => {
+  handleItemDetailClick = (e, item) => {
     this.stopPropagation(e);
     this.props.onItemDetailClick(item);
   };
@@ -137,23 +84,23 @@ class CardItem extends React.Component<CardItemProps, any> {
     onDragEnd();
   };
 
-  handleDragChange = (event: any, item: any) => {
+  handleDragChange = (event, item) => {
     const { onDragStart } = this.props;
     event.dataTransfer.setData('TileListItem', JSON.stringify(item));
     onDragStart();
   };
 
-  getYearMonthDateIime = (item: any) => {
+  getYearMonthDateIime = (item) => {
     const typeItem = this.props.type === 'summary' ? summaryKeys : imageKeys;
     const timeTitle = moment(item[typeItem.timeTitle]);
-    const month:number = timeTitle.month() + 1;
-    const date:number = timeTitle.date();
-    const year:number = timeTitle.year();
-    const time:string = timeTitle.format('HH:mm:ss');
+    const month = timeTitle.month() + 1;
+    const date = timeTitle.date();
+    const year = timeTitle.year();
+    const time = timeTitle.format('HH:mm:ss');
     return [year, month, date, time];
   };
 
-  renderDaysTitle = (item: any) => {
+  renderDaysTitle = (item) => {
     const [year, month, date, time] = this.getYearMonthDateIime(item);
     return (
       <React.Fragment>
@@ -170,7 +117,7 @@ class CardItem extends React.Component<CardItemProps, any> {
     );
   };
 
-  renderMonths = (item: any) => {
+  renderMonths = (item) => {
     const [year, month] = this.getYearMonthDateIime(item);
     return (
       <React.Fragment>
@@ -182,7 +129,7 @@ class CardItem extends React.Component<CardItemProps, any> {
     );
   };
 
-  renderQuarters = (item: any) => {
+  renderQuarters = (item) => {
     const [year, month] = this.getYearMonthDateIime(item);
     return (
       <React.Fragment>
@@ -197,7 +144,7 @@ class CardItem extends React.Component<CardItemProps, any> {
     );
   };
 
-  renderTitle = (item: any) => {
+  renderTitle = (item) => {
     const { timeSpanType } = this.props;
     switch (timeSpanType) {
       case 'days':
@@ -211,7 +158,7 @@ class CardItem extends React.Component<CardItemProps, any> {
     }
   };
 
-  renderContent = (item: any) => {
+  renderContent = (item) => {
     const typeItem = this.props.type === 'summary' ? summaryKeys : imageKeys;
     const subTitle1 = item[typeItem.subTitle1];
     const subTitle2 = sateName[subTitle1];

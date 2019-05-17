@@ -3,26 +3,13 @@ import WMTSTileGrid from 'ol/tilegrid/WMTS';
 import WMTS from 'ol/source/WMTS';
 import { Tile } from 'ol/layer';
 
-const resolutions: number[] = [];
-const matrixIds: string[] = [];
+const resolutions = [];
+const matrixIds = [];
 for (let i = 1; i < 21; i += 1) {
   const resolution = 0.703125 / Math.pow(2, i);
   resolutions.push(resolution);
   matrixIds.push(i.toString());
 }
-
-export interface CommonLayerProps {
-  projection: any,
-  url: string
-}
-
-export interface ResultConfig {
-  preload: number,
-  source: any,
-  extent: any
-}
-
-
 
 class CommonLayer {
   /**
@@ -31,15 +18,13 @@ class CommonLayer {
    * @param ids
    * @returns {*}
    */
-  static getUrl = (url: string, ids: Array<any>) => ids.map(id => `${url}/${id}/wmts?`);
-  url: string;
-  projection: any;
+  static getUrl = (url, ids) => ids.map(id => `${url}/${id}/wmts?`);
 
   /**
    * es6不支持重载，所以要类型判断
    * @param config
    */
-  constructor({ projection, url }: CommonLayerProps) {
+  constructor({ projection, url }) {
     this.url = url;
     this.projection = projection;
   }
@@ -53,7 +38,7 @@ class CommonLayer {
     });
   };
 
-  getSource(imageMeta: any, tileGrid: any) {
+  getSource(imageMeta, tileGrid) {
     return new WMTS({
       url: this.url,
       layer: imageMeta.layer || imageMeta._id, // TODO 这里为了兼容uni的id和layer不一致的情况，要反映
@@ -72,7 +57,7 @@ class CommonLayer {
    * @param config
    * @returns {*}
    */
-  createLayer(imageMeta: any, config: any) {
+  createLayer(imageMeta, config) {
     if (typeof config === 'object') {
       return this.addLayerWithConfig(imageMeta, config);
     }
@@ -84,7 +69,7 @@ class CommonLayer {
    * @param imageMeta
    * @returns {{source: WMTS, extent: *}}
    */
-  getConfig = (imageMeta: any, config: any) => {
+  getConfig = (imageMeta, config) => {
     // const { source, extent, preload, ...other } = config;
     // const resultConfig = {
     //   source: source || defaultSource,
@@ -100,7 +85,7 @@ class CommonLayer {
       const imgFeature = new WKT().readFeature(imageMeta.ImgRange);
        extent = imgFeature.getGeometry().getExtent();
     }
-    const resultConfig: ResultConfig = {
+    const resultConfig = {
       ...config,
       preload: Infinity,
       source,
@@ -112,17 +97,17 @@ class CommonLayer {
   /**
    * 通过图层id，添加图层
    */
-  addLayerWithConfig(imageMeta: any, config: any) {
+  addLayerWithConfig(imageMeta, config) {
     const resultConfig = this.getConfig(imageMeta, config);
     return this._createLayer(resultConfig);
   }
 
-  addLayerWithoutConfig(imageMeta: any) {
+  addLayerWithoutConfig(imageMeta) {
     const defaultConfig = this.getConfig(imageMeta, null);
     return this._createLayer(defaultConfig);
   }
 
-  _createLayer = (config: any) => {
+  _createLayer = (config) => {
     const newLayer = new Tile({
       ...config,
     });

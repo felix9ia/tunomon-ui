@@ -12,7 +12,11 @@
 https://markdownlivepreview.com
 
 ---
-## 0.3.0
+
+## 0.3.2
+-  💄  从TypeScript迁移到JavaScript
+
+## 0.3.1
 -  💄  CardItem支持render函数
 
 ## 0.3.0

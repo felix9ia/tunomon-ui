@@ -7,23 +7,8 @@ import { get as getProjection } from 'ol/proj';
 
 const projection = getProjection('EPSG:4326');
 
-export interface MapProps {
-  target: any,
-  defaultView: any
-}
-
-export interface MarkerProps {
-  layer: any,
-  overlay: any
-}
-
 class Map {
-  layerList: never[];
-  map: any;
-  currentZoom: number;
-  defaultView: any;
-  target: any;
-  constructor({ target, defaultView }: MapProps) {
+  constructor({ target, defaultView }) {
     this.layerList = [];
     this.map = null;
     this.currentZoom = 4;
@@ -32,7 +17,7 @@ class Map {
     this.init();
   }
 
-  static transformExtentToUni(extent: any) {
+  static transformExtentToUni(extent) {
     const east = extent[2];
     const west = extent[3];
     const south = extent[1];
@@ -40,7 +25,7 @@ class Map {
     return [east, west, south, north];
   }
 
-  static transformExtentToOl(extent: any) {
+  static transformExtentToOl(extent) {
     const east = extent[0];
     const west = extent[1];
     const south = extent[2];
@@ -108,7 +93,7 @@ class Map {
    * @param layer
    * @param overlay
    */
-  addMarkerLayer = ({ layer, overlay }: MarkerProps) => {
+  addMarkerLayer = ({ layer, overlay }) => {
     if (!layer || !overlay) {
       console.warn('addMarkerLayer未能初始化某些参数');
     }
@@ -116,11 +101,11 @@ class Map {
     overlay && this.map.addOverlay(overlay);
   };
 
-  addLayer(layer: TileLayer) {
+  addLayer(layer) {
     this.map.addLayer(layer);
   }
 
-  removeLayer(layer: TileLayer) {
+  removeLayer(layer) {
     this.map.removeLayer(layer, true);
   }
 
@@ -129,12 +114,12 @@ class Map {
    * @param id
    * @returns {*|Array}
    */
-  getCommonLayers = (id: any) => {
+  getCommonLayers = (id) => {
     let finedLayer;
     if (id) {
       // return this.layerList.find(layer.id === id);
       const allLayers = this.map.getLayers();
-      allLayers.forEach((layer: any) => {
+      allLayers.forEach((layer) => {
         const source = layer.getSource();
         const urls = source.getUrls(); // 这里居然可以是数组，可以放好多个！
         const layerUrl = urls[0];
@@ -147,7 +132,7 @@ class Map {
     return finedLayer || this.layerList;
   };
 
-  fitByImgRange(ImgRange: any) {
+  fitByImgRange(ImgRange) {
     /**
      * 分两种情况
      * 1.如果直接给[120.28877476616279, 120.2771892039965, 36.03962683748332, 36.04903575709562]

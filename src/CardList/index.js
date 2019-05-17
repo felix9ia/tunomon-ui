@@ -1,16 +1,7 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 
-export interface CardListProps {
-  multiple: boolean,
-  scrollTop: number,
-  source: Array<any>,
-  rowKey: string,
-  selectedRowKeys: Array<any>,
-  onChange: (keys: Array<any>, rows: Array<any>) => {},
-}
-
-class CardList extends React.Component<CardListProps, any> {
+class CardList extends React.Component {
   // static getDerivedStateFromProps = (nextProps, prevState) => {
   //   // if ('value' in nextProps) {
   //   //   return { ...prevState, value: nextProps.value };
@@ -33,10 +24,6 @@ class CardList extends React.Component<CardListProps, any> {
     timeSpanType: PropTypes.string,
   };
 
-  private selfNode: any;
-  private isPressing: boolean;
-
-
   componentDidMount() {
     this.props.multiple && this.listenPress();
     this.scrollTo(this.props.scrollTop);
@@ -46,7 +33,7 @@ class CardList extends React.Component<CardListProps, any> {
     this.props.multiple && this.unListenPress();
   }
 
-  scrollTo = (top: number) => {
+  scrollTo = (top) => {
     this.selfNode.scrollTo({
       top,
     });
@@ -76,13 +63,13 @@ class CardList extends React.Component<CardListProps, any> {
     this.isPressing = true;
   };
 
-  handleItemSelect = (item: any) => {
+  handleItemSelect = (item) => {
     const {rowKey} = this.props;
     const currentId = item[rowKey];
     const current = [currentId];
     const concatedItems = this.props.selectedRowKeys.concat(current);
     const resultIds = this.isPressing ? concatedItems : current;
-    const rows = this.props.source.filter((sourceItem: any) => {
+    const rows = this.props.source.filter((sourceItem) => {
       return resultIds.find(id => sourceItem[rowKey] === id);
     });
     if (this.props.onChange) {
@@ -90,7 +77,7 @@ class CardList extends React.Component<CardListProps, any> {
     }
   };
 
-  shouldSelected = (item: any) => {
+  shouldSelected = (item) => {
     const { selectedRowKeys, rowKey } = this.props;
     if (!selectedRowKeys) {
       throw new Error('  未找到 selectedRowKeys 属性');
@@ -103,8 +90,8 @@ class CardList extends React.Component<CardListProps, any> {
 
   render() {
     const {  rowKey } = this.props;
-    const childrenWithProps = (sourceItem: any) => {
-      return React.Children.map(this.props.children, (child: any) =>
+    const childrenWithProps = (sourceItem) => {
+      return React.Children.map(this.props.children, (child) =>
         React.cloneElement(child, {
           item: sourceItem,
           key: sourceItem[rowKey],

@@ -6,19 +6,9 @@ import OverlayPositioning from 'ol/OverlayPositioning';
 import VectorSource from 'ol/source/Vector';
 import { Icon, Style } from 'ol/style';
 
-export interface OverlayProps {
-  element: any,
-}
-
-export interface LayerProps {
-  point: any, 
-  data: any, 
-  iconConfig: any
-}
-
 class MarkerLayer {
-  popupList: Overlay[];
-  layerList: VectorLayer[];
+  popupList;
+  layerList
   constructor() {
     this.popupList = []; // 用于记录弹出的overlay
     this.layerList = [];
@@ -31,7 +21,7 @@ class MarkerLayer {
    * @param element
    * @returns {Overlay}
    */
-  addOverlay({ element }: OverlayProps) {
+  addOverlay({ element }) {
     if (!element) {
       throw new Error('未能指定overlay的target');
     }
@@ -48,7 +38,7 @@ class MarkerLayer {
   /**
    * 添加marker的point到图层
    */
-  createLayer({ point, data, iconConfig}: LayerProps) {
+  createLayer({ point, data, iconConfig}) {
     const iconFeature = new Feature({
       geometry: new Point(point),
       data,

@@ -5,17 +5,12 @@ import {  Vector as VectorSource } from 'ol/source';
 import { Fill, Stroke, Style } from 'ol/style';
 import MapHelper from './Map'
 
-interface polygonProps {
-    data: any,
-    extent: number[]
-}
-
 class LabelLayer {
     constructor() {
 
     }
 
-    create({extent, data}:polygonProps) {
+    create({extent, data}) {
         const transfromedExtent = MapHelper.transformExtentToOl(extent);
         // Polygons
         const polygonStyle = () => {

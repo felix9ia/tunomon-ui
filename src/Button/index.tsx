@@ -1,10 +1,6 @@
 import * as React from 'react';
-export interface Props {
-    color: string,
-    children: Node
-}
 
-export default function ({children}: Props) {
+export default function ({children}) {
     return (
         <button style={{color: 'blue'}}>{children}</button>
     );
