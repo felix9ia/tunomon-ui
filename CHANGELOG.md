@@ -12,6 +12,11 @@
 https://markdownlivepreview.com
 
 ---
+## 0.3.3
+
+`2019-5-17`
+
+-  💄  分离openlayers到[patamon](https://github.com/felix9ia/patamon)
 
 ## 0.3.2
 -  💄  从TypeScript迁移到JavaScript
