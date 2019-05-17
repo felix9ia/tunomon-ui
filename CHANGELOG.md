@@ -13,6 +13,9 @@ https://markdownlivepreview.com
 
 ---
 ## 0.3.0
+-  💄  CardItem支持render函数
+
+## 0.3.0
 -  🎉  新增LabelLayer的helper，可绘制目标点，江南计算所
 -  💄  CommonLayer由host改变为url
 

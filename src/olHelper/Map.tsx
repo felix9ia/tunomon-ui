@@ -154,14 +154,12 @@ class Map {
      */
     const isNumberArray = typeof ImgRange === 'object';
     let extent;
-    console.log('ImgRange====', ImgRange);
     if (isNumberArray) {
       extent = Map.transformExtentToOl(ImgRange);
     } else {
     const imgFeature = new WKT().readFeature(ImgRange);
       extent = imgFeature.getGeometry().getExtent();
     }
-    console.log('extent--', extent)
     this.map.getView().fit( extent, this.map.getSize());
   }
 

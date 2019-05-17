@@ -94,6 +94,7 @@ export interface CardItemProps {
   onItemMouseOver: (item: any) => {},
   onItemMouseLeave: (item: any) => {},
   onClick: (item: any) => {},
+  render: (item: any) => {},
   shouldSelected: (item: any) => boolean
 }
 
@@ -113,6 +114,7 @@ class CardItem extends React.Component<CardItemProps, any> {
   static propTypes = {
     draggable: PropTypes.bool,
     onClick: PropTypes.func,
+    render: PropTypes.func,
     shouldSelected: PropTypes.func,
     onItemDetailClick: PropTypes.func,
     onItemMouseOver: PropTypes.func,
@@ -209,38 +211,14 @@ class CardItem extends React.Component<CardItemProps, any> {
     }
   };
 
-  render() {
-    const { item } = this.props;
+  renderContent = (item: any) => {
     const typeItem = this.props.type === 'summary' ? summaryKeys : imageKeys;
     const subTitle1 = item[typeItem.subTitle1];
     const subTitle2 = sateName[subTitle1];
     const linkTitle = item[typeItem.linkTitle];
     const { linkSubTitle } = typeItem;
-    const shouldSelected = this.props.shouldSelected(item);
-    const showSelect = shouldSelected ? styles.selectedItem : '';
-    const {  draggable } = this.props;
-    return (
-      <Card
-        onMouseOver={() => {
-          this.props.onItemMouseOver(item);
-        }}
-        onMouseLeave={() => {
-          this.props.onItemMouseLeave(item);
-        }}
-        onFocus={() => {}}
-        className={classNames(styles.listItem, showSelect)}
-        draggable={draggable}
-        onClick={() => {
-          this.props.onClick(item);
-        }}
-        onDragStart={e => {
-          this.handleDragChange(e, item);
-        }}
-        onDragEnd={() => {
-          this.handleDragEnd();
-        }}
-      >
-        <CardMedia
+    return <React.Fragment>
+      <CardMedia
           className={styles.itemThumb}
           image="http://placehold.it/900x900/c2b2a5/000000?text=This+is+a+picture"
           title="Live from space album cover"
@@ -262,6 +240,37 @@ class CardItem extends React.Component<CardItemProps, any> {
             {linkSubTitle}
           </Typography>
         </CardContent>
+    </React.Fragment>
+  }
+
+  render() {
+    const { item } = this.props;
+    const shouldSelected = this.props.shouldSelected(item);
+    const showSelect = shouldSelected ? styles.selectedItem : '';
+    const {  draggable } = this.props;
+  
+    return (
+      <Card
+        onMouseOver={() => {
+          this.props.onItemMouseOver(item);
+        }}
+        onMouseLeave={() => {
+          this.props.onItemMouseLeave(item);
+        }}
+        onFocus={() => {}}
+        className={classNames(styles.listItem, showSelect)}
+        draggable={draggable}
+        onClick={() => {
+          this.props.onClick(item);
+        }}
+        onDragStart={e => {
+          this.handleDragChange(e, item);
+        }}
+        onDragEnd={() => {
+          this.handleDragEnd();
+        }}
+      >
+    {this.props.render ? this.props.render(item) : this.renderContent(item) }
       </Card>
     );
   }
