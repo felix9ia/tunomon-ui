@@ -13,13 +13,14 @@ class CardList extends React.Component {
     multiple: false,
     scrollTop: 0,
     source: [],
-    rowKey: '_id',
+    rowKey: '_id', // 在selectedRowKeys时使用
     onItemMouseLeave: () => {},
   };
 
   static propTypes = {
     multiple: PropTypes.bool,
     source: PropTypes.array,
+    selectedRowKeys: PropTypes.array,
     scrollTop: PropTypes.number,
     timeSpanType: PropTypes.string,
   };

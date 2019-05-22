@@ -9,6 +9,21 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 
+const summaryKeys = {
+  timeTitle: 'period',
+  subTitle1: 'sateName',
+  subTitle2: 'sateName',
+  linkTitle: 'count',
+  linkSubTitle: 'image',
+};
+const imageKeys = {
+  timeTitle: 'ProduceDate',
+  subTitle1: 'SateName',
+  subTitle2: 'SateName',
+  linkTitle: 'count',
+  linkSubTitle: 'info',
+};
+
 const sateName = {
   "BJ2": "0.8米",
   "GE1": "0.41米",
@@ -29,21 +44,6 @@ const sateName = {
   "S2A": "10米"
 }
 
-
-const summaryKeys = {
-  timeTitle: 'period',
-  subTitle1: 'sateName',
-  subTitle2: 'sateName',
-  linkTitle: 'count',
-  linkSubTitle: 'image',
-};
-const imageKeys = {
-  timeTitle: 'ProduceDate',
-  subTitle1: 'SateName',
-  subTitle2: 'SateName',
-  linkTitle: 'count',
-  linkSubTitle: 'info',
-};
 
 class CardItem extends React.Component {
   static defaultProps = {
