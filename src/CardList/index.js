@@ -10,10 +10,10 @@ class CardList extends React.Component {
   // };
 
   static defaultProps = {
-    multiple: false,
-    scrollTop: 0,
-    source: [],
-    rowKey: '_id', // 在selectedRowKeys时使用
+    multiple: false, // 是否支持多选
+    scrollTop: 0, // 滚动到的位置
+    source: [], // 数据源
+    rowKey: '_id', // 主键，在selectedRowKeys时使用
     onItemMouseLeave: () => {},
   };
 
