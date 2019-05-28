@@ -4,18 +4,15 @@
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
   "license": "MIT",
-
   "scripts": {
     "dev": "umi-lib build --watch",
     "build": "umi-lib build",
     "doc:dev": "umi-lib doc dev",
     "doc:build": "umi-lib doc build"
   },
-  
   "files": [
     "dist"
   ],
-
   "dependencies": {
     "@material-ui/core": "^3.9.3",
     "@material-ui/icons": "^3.0.2",
@@ -25,11 +22,9 @@
     "prop-types": "^15.7.2",
     "scrollbooster": "^1.1.0"
   },
-
   "peerDependencies": {
     "react": "^16.6.0"
   },
-
   "devDependencies": {
     "umi-library": "^1.5.1",
     "@hanreev/types-ol": "^1.0.3",
