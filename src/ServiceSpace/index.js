@@ -24,18 +24,28 @@ class ServiceSpace {
     return analys(value);
   }
 
+
   // 获取影像的空间参考类型
   // spr_uuid 00003433-3236-0000-0000-000000000000
   initSpatialType(spr_uuid) {
-    const name = sprList[spr_uuid].name.split('/')[0];
-    return [name, spr_uuid]
+    if (sprList.hasOwnProperty(spr_uuid)) {
+      const name = sprList[spr_uuid].name.split('/')[0];
+      return [name, spr_uuid]
+    } else {
+      return []
+    }
+
   }
 
   // 获取影像空间参考详细信息
   // 获取
   getSpatialMeta(spr_uuid) {
-    const name = sprList[spr_uuid].name.split('/')[0];
-    return  sprList[spr_uuid]
+    if (sprList.hasOwnProperty(spr_uuid)) {
+      const name = sprList[spr_uuid].name.split('/')[0];
+      return  sprList[spr_uuid]
+    } else {
+      return {}
+    }
   }
 
   // 获取影像空间参考列表

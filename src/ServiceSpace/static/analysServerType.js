@@ -40,6 +40,9 @@ export default function analysServerType(server_type_arr) {
     dpi = Number(server_type_arr[len - 1]);
   }
 
-  proj = sprList[spr_uuid].proj;
+  if (sprList.hasOwnProperty(spr_uuid)) {
+    proj = sprList[spr_uuid].proj;
+  }
+  
   return { tile_type, spr_uuid, dpi, proj };
 }
