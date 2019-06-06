@@ -29,8 +29,9 @@ class ServiceSpace {
   // spr_uuid 00003433-3236-0000-0000-000000000000
   initSpatialType(spr_uuid) {
     if (sprList.hasOwnProperty(spr_uuid)) {
-      const name = sprList[spr_uuid].name.split('/')[0];
-      return [name, spr_uuid]
+      const name = sprList[spr_uuid].name.split('/');
+      name.pop()
+      return [...name, spr_uuid]
     } else {
       return []
     }
@@ -41,7 +42,6 @@ class ServiceSpace {
   // 获取
   getSpatialMeta(spr_uuid) {
     if (sprList.hasOwnProperty(spr_uuid)) {
-      const name = sprList[spr_uuid].name.split('/')[0];
       return  sprList[spr_uuid]
     } else {
       return {}
@@ -55,3 +55,4 @@ class ServiceSpace {
 }
 
 export default ServiceSpace;
+
