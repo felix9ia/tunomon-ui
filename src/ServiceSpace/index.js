@@ -12,7 +12,27 @@ class ServiceSpace {
   initService(spr_uuid, dpi, title_type) {
     return initServeType(spr_uuid, dpi, title_type);
   }
+  
+  initServiceLabel (spr_uuid, dpi, title_type) {
+    const serverType = initServeType(spr_uuid, dpi, title_type);
+    const serverLabel = []
+    for ( let i =0; i<serverTypeList.length; i++) {
+      const item = serverTypeList[i]
+      if (item.value === serverType[0]) {
+        serverLabel.push(item.label)
+        const  children = item.children
+        for (let j=0; j<children.length; j++) {
+          const temp = children[j]
+          if (temp.value === serverType[1]) {
+            serverLabel.push(temp.label)    
+            break;
+          }
+        }
+      }
+    }
 
+    return serverLabel.join('/')
+  }
   // 获取服务类型
   getServiceList() {
     return serverTypeList;
@@ -42,7 +62,7 @@ class ServiceSpace {
   // 获取
   getSpatialMeta(spr_uuid) {
     if (sprList.hasOwnProperty(spr_uuid)) {
-      return  sprList[spr_uuid]
+      return sprList[spr_uuid]
     } else {
       return {}
     }
@@ -53,6 +73,8 @@ class ServiceSpace {
     return spaceList;
   }
 }
+
+
 
 export default ServiceSpace;
 
