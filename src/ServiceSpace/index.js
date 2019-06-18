@@ -1,18 +1,21 @@
 import serverTypeList from './static/serverTypeSet';
 import analys from './static/analysServerType';
 import initServeType from './static/initServeType';
-import spr2_uuid from './static/spr2_uuid.json';
-import spaceList from './static/spaceList';
-
-const sprList = spr2_uuid;
+import _ from 'lodash'
+import _spaceList from './static/spaceList';
+import _spaceMeta from './static/spr2_uuid.json';
 
 class ServiceSpace {
-  constructor() {}
+  constructor({spaceList=[], spaceMeta = []}={}) {
+    this.spaceList = _.concat(_spaceList, spaceList)
+    this.spaceMeta = _.assign(_spaceMeta, spaceMeta)
+  }
+
   // value: ['00003433-3236-0000-0000-000000000000', 2, 2]
   initService(spr_uuid, dpi, title_type) {
     return initServeType(spr_uuid, dpi, title_type);
   }
-  
+
   initServiceLabel (spr_uuid, dpi, title_type) {
     const serverType = initServeType(spr_uuid, dpi, title_type);
     const serverLabel = []
@@ -24,7 +27,7 @@ class ServiceSpace {
         for (let j=0; j<children.length; j++) {
           const temp = children[j]
           if (temp.value === serverType[1]) {
-            serverLabel.push(temp.label)    
+            serverLabel.push(temp.label)
             break;
           }
         }
@@ -47,9 +50,11 @@ class ServiceSpace {
 
   // 获取影像的空间参考类型
   // spr_uuid 00003433-3236-0000-0000-000000000000
+  // [wgse, 152]
   initSpatialType(spr_uuid) {
-    if (sprList.hasOwnProperty(spr_uuid)) {
-      const name = sprList[spr_uuid].name.split('/');
+    const spaceMeta = this.spaceMeta
+    if (spaceMeta.hasOwnProperty(spr_uuid)) {
+      const name = spaceMeta[spr_uuid].name.split('/');
       name.pop()
       return [...name, spr_uuid]
     } else {
@@ -59,10 +64,10 @@ class ServiceSpace {
   }
 
   // 获取影像空间参考详细信息
-  // 获取
   getSpatialMeta(spr_uuid) {
-    if (sprList.hasOwnProperty(spr_uuid)) {
-      return sprList[spr_uuid]
+    const spaceMeta = this.spaceMeta
+    if (spaceMeta.hasOwnProperty(spr_uuid)) {
+      return spaceMeta[spr_uuid]
     } else {
       return {}
     }
@@ -70,11 +75,8 @@ class ServiceSpace {
 
   // 获取影像空间参考列表
   getSpaceList() {
-    return spaceList;
+    return this.spaceList;
   }
 }
 
-
-
 export default ServiceSpace;
-
