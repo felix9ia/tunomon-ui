@@ -6,12 +6,21 @@ import _spaceList from './static/spaceList';
 import _spaceMeta from './static/spr2_uuid.json';
 
 class ServiceSpace {
-  constructor({spaceList=[], spaceMeta = []}={}) {
+  constructor({spaceList=[], spaceMeta = {}}={}) {
     this.spaceList = _.concat(_spaceList, spaceList)
     this.spaceMeta = _.assign(_spaceMeta, spaceMeta)
+    this.setSpaceList = this.setSpaceList.bind(this);
+    this.setSpaceMeta = this.setSpaceMeta.bind(this);
+  }
+  // value: ['00003433-3236-0000-0000-000000000000', 2, 2]
+  setSpaceList (spaceList=[]) {
+    return this.spaceList = _.concat(_spaceList,  spaceList)
   }
 
-  // value: ['00003433-3236-0000-0000-000000000000', 2, 2]
+  setSpaceMeta (spaceMeta= {}) {
+    return this.spaceMeta = _.assign(_spaceMeta, spaceMeta)
+  }
+
   initService(spr_uuid, dpi, title_type) {
     return initServeType(spr_uuid, dpi, title_type);
   }
@@ -33,7 +42,6 @@ class ServiceSpace {
         }
       }
     }
-
     return serverLabel.join('/')
   }
   // 获取服务类型
