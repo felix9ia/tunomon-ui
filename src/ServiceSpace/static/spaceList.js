@@ -1,4 +1,5 @@
 export default [
+  { value: '00000000-0000-0000-0000-000000000000', label: '空' },
   {
     value: 'WGS 84',
     label: 'WGS 84',
